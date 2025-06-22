@@ -18,7 +18,7 @@
             <label class="form-label text-capitalize skill">
               {{ attr }}: <span id="{{ attr }}_val">0</span>
             </label>
-            <input type="range" class="form-range" min="0" max="1000" value="0" name="{{ attr }}" id="{{ attr }}" oninput="atualizarPontos(event)">
+            <input type="range" class="form-range" min="0" max="100" value="0" name="{{ attr }}" id="{{ attr }}" oninput="atualizarPontos(event)">
           </div>
           {% endfor %}  
         </div> 
@@ -197,7 +197,7 @@ function atualizarPreview() {
   const imagemCorpo = document.querySelector(".corpo-1");
   if (imagemCorpo && novaArmadura) imagemCorpo.src = novaArmadura;
 
-  const armaSelect = document.getElementById("arma");
+  const armaSelect = document.getElementById("arma"); 
   const armaSelecionada = armaSelect.value;
   const imagemArma = document.querySelector(".arma");
   const imagemArco = document.querySelector(".arco");
@@ -223,7 +223,7 @@ function atualizarPreview() {
 function validarPontos() {
   let total = atributos.reduce((acc, attr) => acc + parseInt(sliders[attr].value), 0);
   if (total !== totalMax) {
-    alert("Você precisa distribuir exatamente 200 pontos.");
+    alert("Você precisa distribuir exatamente "+ totalMax +" pontos.");
     return false;
   }
   return true;

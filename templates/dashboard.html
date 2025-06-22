@@ -16,59 +16,50 @@
             <h5 class="card-title nome">{{ p.nome }}</h5>
             <ul class="hard-skills"> 
               <li><span style="width: {{ p.forca }}%;"></span>Força: {{ p.forca }}%</li> 
-              <li><span  style="width: {{ p.inteligencia }}%;"></span>Inteligência: {{ p.inteligencia }}% </li>
-              <li><span  style="width: {{ p.agilidade }}%;"></span>Agilidade: {{ p.agilidade }}% </li>
-              <li><span  style="width: {{ p.resistencia }}%;"></span>Resistência: {{ p.resistencia }}%</li>
+              <li><span style="width: {{ p.inteligencia }}%;"></span>Inteligência: {{ p.inteligencia }}%</li>
+              <li><span style="width: {{ p.agilidade }}%;"></span>Agilidade: {{ p.agilidade }}%</li>
+              <li><span style="width: {{ p.resistencia }}%;"></span>Resistência: {{ p.resistencia }}%</li>
             </ul> 
-          <div class="personagem">
-          
-              {% if p.arma == url_for('static', filename='assets/img/arco.png') %}
-              <img src="{{ p.arma }}" class="arco">
-                
+
+            <div class="personagem">
+              {% if 'arco.png' in p.arma %}
+                <img src="{{ p.arma }}" class="arco" alt="">
               {% else %}
-                <img src="{{ url_for('static', filename='assets/img/vazio.png') }}" class="arco">
-              {% endif %}  
+                <img src="{{ url_for('static', filename='assets/img/vazio.png') }}" class="arco" alt="">
+              {% endif %}
 
+              <img src="{{ url_for('static', filename='assets/img/cabeca.png') }}" class="rosto" alt="">   
+              <img src="{{ p.capacete }}" class="cabeca" alt="">  
+              <img src="{{ p.armadura }}" class="corpo-1" alt=""> 
+              <img src="{{ p.escudo }}" class="escudo" alt=""> 
 
-            
-            <img src="{{ url_for('static', filename='assets/img/cabeca.png') }}" class="rosto">   
-             <img src="{{ p.capacete }} " class="cabeca">  
-             <img src="{{ p.armadura }} " class="corpo-1"> 
-              <img src="{{ p.escudo }} " class="escudo"> 
-              {% if p.arma == url_for('static', filename='assets/img/arco.png') %}
-                <img src="{{ url_for('static', filename='assets/img/vazio.png') }}" class="arma">
+              {% if 'arco.png' in p.arma %}
+                <img src="{{ url_for('static', filename='assets/img/vazio.png') }}" class="arma" alt="">
               {% else %}
-                <img src="{{ p.arma }}" class="arma">
-              {% endif %}         
-                          
-          </div> 
+                <img src="{{ p.arma }}" class="arma" alt="">
+              {% endif %}
+            </div> 
 
+            <div class="row controls">
+              <div class="col-sm-6">
+                <form action="{{ url_for('deletar_personagem', id=p.id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este personagem?')">
+                  <button class="btn btn-sm btn-danger mt-2 delete">Excluir</button>
+                </form>
+              </div>
+              <div class="col-sm-6">        
+                <button class="btn btn-sm btn-danger mt-2 selecionar-btn select" onclick="selecionarPersonagem(this)">Selecionar</button>      
+              </div>
+            </div>
 
+            <div class="row controls start"> 
+              <div class="col-sm-12">        
+                <button class="btn btn-sm btn-danger mt-2 jogar-btn select" onclick="return alert('Iniciando o jogo')">Jogar</button>    
+              </div>
+            </div>
 
-
-<div class="row controls">
-  <div class="col-sm-6">
-                  <form action="{{ url_for('deletar_personagem', id=p.id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este personagem?')">
-      <button class="btn btn-sm btn-danger mt-2 delete">Excluir</button>
-      </form>
-      </div>
-       <div class="col-sm-6">        
-      <button class="btn btn-sm btn-danger mt-2 select" onclick="selecionarPersonagem(this)">Selecionar</button>      
-        </div>
-</div>
-
-<div class="row controls start"> 
-       <div class="col-sm-12">        
-      <button class="btn btn-sm btn-danger mt-2 select" onclick="return alert('inicindo o jogo')">Jogar</button>      
-        </div>
-</div>
-
-
-          </div>
-        </div>
-      </div>
-
-
+          </div> <!-- .card-body -->
+        </div> <!-- .text-dark -->
+      </div> <!-- .col-md-4 -->
       {% endfor %}
     </div>
   {% else %}
@@ -76,4 +67,4 @@
   {% endif %}
 </div>
 {% endblock %}
-
+ 
