@@ -9,7 +9,7 @@
     parallax.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
   });
 
-
+ 
 
 /*LETREIRO ANIMADO */
   document.addEventListener("DOMContentLoaded", function () {

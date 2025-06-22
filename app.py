@@ -36,6 +36,9 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'usuario_id' in session: 
+        return redirect(url_for('dashboard')) 
+
     if request.method == 'POST':
         usuario = request.form['usuario']
         senha = request.form['senha']
@@ -45,6 +48,10 @@ def login():
             return redirect(url_for('dashboard'))
         return 'Login inválido'
     return render_template('login.html')
+
+
+
+
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -59,17 +66,21 @@ def cadastro():
         return redirect(url_for('login'))
     return render_template('cadastro.html')
 
-@app.route('/dashboard')
+@app.route('/dashboard') 
 def dashboard():
     if 'usuario_id' not in session:
         return redirect(url_for('login'))
-    personagens = Personagem.query.filter_by(user_id=session['usuario_id']).all()
-    return render_template('dashboard.html', personagens=personagens)
+    
+    user = Usuario.query.get(session['usuario_id'])  # <- Pega o usuário logado
+    personagens = Personagem.query.filter_by(user_id=user.id).all()
+    
+    return render_template('dashboard.html', personagens=personagens, user=user.username)
 
-@app.route('/criar_personagem', methods=['GET', 'POST'])
+@app.route('/criar_personagem', methods=['GET', 'POST']) 
 def criar_personagem():
     if 'usuario_id' not in session:
         return redirect(url_for('login'))
+    user = Usuario.query.get(session['usuario_id'])  # pega o usuário logado
 
     if request.method == 'POST':
         personagem = Personagem(
@@ -82,13 +93,14 @@ def criar_personagem():
             escudo=request.form['escudos'],
             armadura=request.form['armaduras'],
             capacete=request.form['capacetes'],
-            user_id=session['usuario_id']
+            user_id=session['usuario_id'],
+            
         )
         db.session.add(personagem)
         db.session.commit()
         return redirect(url_for('dashboard'))
 
-    return render_template('criar_personagem.html')
+    return render_template('criar_personagem.html', user=user.username)
 
 @app.route('/sair')
 def sair():

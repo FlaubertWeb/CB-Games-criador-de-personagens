@@ -12,10 +12,10 @@
       <div class="quadro-medieval text-center p-5 col-md-6 mx-auto">
         <form method="POST" action="/cadastro">
           <div class="mb-3 text-start">
-            <input placeholder="Usuário" type="text" class="form-control" id="usuario" name="usuario" required>
+            <input placeholder="Usuário" type="text" class="form-control" id="usuario" name="usuario" minlength="5" required>
           </div>
-          <div class="mb-3 text-start">
-            <input placeholder="Senha" type="password" class="form-control" id="senha" name="senha" required>
+          <div class="mb-3 text-start"> 
+            <input placeholder="Senha" type="password" class="form-control" id="senha" name="senha" required minlength="6">
           </div>
           <div class="mb-3 text-start">
             <input placeholder="Confirmar Senha" type="password" class="form-control" id="confirmar_senha" name="confirmar_senha" required>
@@ -31,15 +31,34 @@
     </small>
   </footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      document.querySelectorAll('.animate').forEach(container => {
-        const spans = container.querySelectorAll('span');
-        spans.forEach((span, i) => {
-          span.style.animationDelay = `${i * 0.05}s`;
-        });
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Animação de letras
+    document.querySelectorAll('.animate').forEach(container => {
+      const spans = container.querySelectorAll('span');
+      spans.forEach((span, i) => {
+        span.style.animationDelay = `${i * 0.05}s`;
       });
     });
-  </script>
+
+    // Validação de senha
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function (e) {
+      const senha = document.getElementById("senha").value;
+      const confirmar = document.getElementById("confirmar_senha").value;
+
+      if (senha !== confirmar) {
+        e.preventDefault();
+        alert("As senhas não coincidem. Verifique e tente novamente.");
+      }
+    });
+  });
+</script>
+
+
+
+
 </body>
 {% endblock %}

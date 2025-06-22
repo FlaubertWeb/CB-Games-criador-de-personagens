@@ -26,19 +26,10 @@
   </div>
   <footer class="text-center mt-5">
     <small>&copy; 2025 CB Games - Todos os direitos reservados.<br>
-      Desenvolvido por: <a href="http://flaubert.dev.br/" target="_blank" class="ass">Flaubert <span>Dev</span></a>
+      Desenvolvido por: <a href="https://flaubert.dev.br/" target="_blank" class="ass">Flaubert <span>Dev</span></a>
     </small>
   </footer>
+   <script src="{{ url_for('static', filename='assets/js/scripts.js') }}"></script>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      document.querySelectorAll('.animate').forEach(container => {
-        const spans = container.querySelectorAll('span');
-        spans.forEach((span, i) => {
-          span.style.animationDelay = `${i * 0.05}s`;
-        });
-      });
-    });
-  </script>
 </body>
 {% endblock %}
