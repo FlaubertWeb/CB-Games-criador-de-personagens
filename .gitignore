@@ -1,0 +1,35 @@
+# Ambientes virtuais
+venv/
+.env/
+
+# Cache do Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Logs
+*.log
+
+# Configs de IDEs
+.vscode/
+*.code-workspace
+.idea/
+
+# Arquivos temporários
+*.bak
+*.tmp
+*.swp
+
+# Banco SQLite
+*.sqlite3
+*.db
+
+# Arquivos de build/distribuição
+build/
+dist/
+*.egg-info/
+
+# Arquivos sensíveis
+.env
+*.key
+*.pem

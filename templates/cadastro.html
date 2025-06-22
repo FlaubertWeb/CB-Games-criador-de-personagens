@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block titulo %}Cadastro{% endblock %}
+{% block conteudo %}
+<body class="fundo-home home">
+  <div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="container py-5 text-center entrada">
+      <h1 class="animate one mb-4">
+        <span>C</span><span>A</span><span>D</span><span>A</span><span>S</span><span>T</span><span>R</span><span>O</span>
+      </h1>
+      <p class="lead">Crie sua conta para acessar o Criador de Personagens</p>
+
+      <div class="quadro-medieval text-center p-5 col-md-6 mx-auto">
+        <form method="POST" action="/cadastro">
+          <div class="mb-3 text-start">
+            <input placeholder="Usuário" type="text" class="form-control" id="usuario" name="usuario" required>
+          </div>
+          <div class="mb-3 text-start">
+            <input placeholder="Senha" type="password" class="form-control" id="senha" name="senha" required>
+          </div>
+          <div class="mb-3 text-start">
+            <input placeholder="Confirmar Senha" type="password" class="form-control" id="confirmar_senha" name="confirmar_senha" required>
+          </div>
+          <button type="submit" class="botao-medieval w-100 mt-3">Cadastrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center mt-5">
+    <small>&copy; 2025 CB Games - Todos os direitos reservados.<br>
+      Desenvolvido por: <a href="http://flaubert.dev.br/" target="_blank" class="ass">Flaubert <span>Dev</span></a>
+    </small>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll('.animate').forEach(container => {
+        const spans = container.querySelectorAll('span');
+        spans.forEach((span, i) => {
+          span.style.animationDelay = `${i * 0.05}s`;
+        });
+      });
+    });
+  </script>
+</body>
+{% endblock %}

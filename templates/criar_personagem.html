@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+{% block titulo %}Criar Personagem{% endblock %}
+ 
+{% block conteudo %}
+<div class="container py-5">
+  <h2 class="text-center mb-4 ">Distribua seus Pontos (Total: 100)</h2>
+
+  <div class="row g-3">
+    <!-- COLUNA ESQUERDA: FORMULÁRIO -->
+    <div class="col-md-6"> 
+
+      <form method="POST" action="/criar_personagem" onsubmit="return validarPontos()">
+        <div class="mb-3 col-12">
+          <input placeholder="Nome do personagem: " type="text" class="form-control" name="nome" id="nome" required oninput="atualizarPreview()">
+        </div>
+       <div class="row">
+            {% for attr in ['forca', 'inteligencia', 'agilidade', 'resistencia'] %}
+                <div class="mb-3 col-md-6">
+                <label class="form-label text-capitalize skill" >
+                    {{ attr }}: <span id="{{ attr }}_val">0</span>
+                </label>
+                <input type="range" class="form-range" min="0" max="100" value="0" name="{{ attr }}" id="{{ attr }}" oninput="atualizarPontos(event)">
+                </div>
+        {% endfor %}  
+</div> 
+        <hr>
+
+        <div class="mb-3">          
+         <label class="form-label">Arma de ataque</label>
+          <select class="form-select" name="arma" id="arma" onchange="atualizarPreview()" required>
+            <option value="{{ url_for('static', filename='assets/img/vazio.png') }}" >Desarmado</option>
+            <option value="{{ url_for('static', filename='assets/img/machado.png') }}" >Machado</option>
+            <option value="{{ url_for('static', filename='assets/img/lanca.png') }}" >Lança</option>
+             <option value="{{ url_for('static', filename='assets/img/arco.png') }}" >Arco e Flecha</option>
+            <option value="{{ url_for('static', filename='assets/img/espada.png') }}" >Espada</option>
+          </select>
+          </div>
+       
+     
+        <div class="mb-3">
+        <label class="form-label">Tipo de Escudo</label>
+          <select class="form-select" name="escudos" id="escudos" onchange="atualizarPreview()" required>
+            <option value="{{ url_for('static', filename='assets/img/vazio.png') }}" >Sem Escudo</option>
+            <option value="{{ url_for('static', filename='assets/img/escudo-1.png') }}">Escudo de Madeira</option> 
+            <option value="{{ url_for('static', filename='assets/img/escudo-2.png') }}" >Escudo de Madeira Reforçado</option>
+             <option value="{{ url_for('static', filename='assets/img/escudo-3.png') }}">Escudo de Ferro</option>
+            <option value="{{ url_for('static', filename='assets/img/escudo-4.png') }}" >Escudo Dourado</option>
+          </select> 
+          </div>
+ 
+
+
+    
+        <div class="mb-3">
+        <label class="form-label">Armaduras</label>
+          <select class="form-select" name="armaduras" id="armaduras" onchange="atualizarPreview()" required>
+            <option value="{{ url_for('static', filename='assets/img/corpo-1.png') }}" >Sem Armadura</option>
+            <option value="{{ url_for('static', filename='assets/img/corpo-2.png') }}" >Armadura malha de ferro</option>
+             <option value="{{ url_for('static', filename='assets/img/corpo-3.png') }}" >Armadura de ferro</option>
+            <option value="{{ url_for('static', filename='assets/img/corpo-4.png') }}" >Armadura dourada</option>
+          </select> 
+          </div>
+  
+ 
+        <div class="mb-3">
+        <label class="form-label">Capacetes</label>
+          <select class="form-select" name="capacetes" id="capacetes" onchange="atualizarPreview()" required>
+            <option value="{{ url_for('static', filename='assets/img/cabeca.png') }}" >Sem Capacete</option>
+            <option value="{{ url_for('static', filename='assets/img/capacete-1.png') }}" >Capacete Simples de Ferro</option>
+             <option value="{{ url_for('static', filename='assets/img/capacete-2.png') }}" >Capacete de Ferro</option>
+            <option value="{{ url_for('static', filename='assets/img/capacete-3.png') }}" >Capacete Dourado</option>
+            <option value="{{ url_for('static', filename='assets/img/capacete-4.png') }}" >Capacete Rei</option>
+          </select> 
+          </div>
+      
+
+
+        <button type="submit" class="btn btn-success w-100">Salvar Personagem</button>
+      </form>
+    </div>
+
+    <!-- COLUNA DIREITA: PREVIEW -->
+    <div class="col-md-6">
+      <div class="card bg-light text-dark shadow">
+        <div class="card-body text-center personagem-tela">
+          <h4 id="preview_nome">Personagem</h4>
+          <div class="personagem">
+            <img src="{{ url_for('static', filename='assets/img/vazio.png') }}" class="arco">   
+            <img src="{{ url_for('static', filename='assets/img/cabeca.png') }}" class="rosto">              
+             <img src="{{ url_for('static', filename='assets/img/vazio.png') }}" class="cabeca">  
+              <img src="{{ url_for('static', filename='assets/img/corpo-1.png') }}" class="corpo-1"> 
+              <img src="{{ url_for('static', filename='assets/img/vazio.png') }}" class="escudo"> 
+              <img src="{{ url_for('static', filename='assets/img/vazio.png') }}" class="arma">                       
+          </div> 
+
+
+            {% for attr in ['forca', 'inteligencia', 'agilidade', 'resistencia'] %}
+             <span class="text-capitalize mb-1">{{ attr }}</span>
+            <div class="progress mb-2">
+             
+                <div 
+                class="progress-bar 
+                    {% if attr == 'forca' %}bg-danger{% endif %}
+                    {% if attr == 'inteligencia' %}bg-info{% endif %}
+                    {% if attr == 'agilidade' %}bg-warning{% endif %}
+                    {% if attr == 'resistencia' %}bg-success{% endif %}
+                " 
+                id="preview_{{ attr }}" 
+                style="width:0%"> 
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+      </div>
+           <div class="mb-3">
+          <label class="form-label text-info-big">Pontos restantes: <strong id="pontos_restantes">100</strong></label>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT: Distribuição e Preview -->
+<script>
+const totalMax = 100;
+const atributos = ["forca", "inteligencia", "agilidade", "resistencia"];
+const sliders = {};
+const valores = {};
+
+atributos.forEach(attr => {
+  sliders[attr] = document.getElementById(attr);
+  valores[attr] = document.getElementById(attr + "_val");
+});
+
+const pontosRestantesEl = document.getElementById("pontos_restantes");
+const nomeInput = document.getElementById("nome");
+
+function atualizarPontos(event) {
+  let soma = 0;
+  atributos.forEach(attr => {
+    soma += parseInt(sliders[attr].value);
+  });
+
+  let restante = totalMax - soma;
+  pontosRestantesEl.innerText = restante;
+
+  atributos.forEach(attr => {
+    const valor = parseInt(sliders[attr].value);
+    valores[attr].innerText = valor;
+    sliders[attr].max = valor + restante;
+
+    const barra = document.getElementById("preview_" + attr);
+    if (barra) {
+      barra.style.width = valor + "%";
+    }
+  });
+
+  atualizarPreview();
+}
+
+function atualizarPreview() {
+  document.getElementById("preview_nome").innerText = nomeInput.value || "Personagem";
+
+  // Armadura
+  const armaduraSelect = document.getElementById("armaduras");
+  const novaArmadura = armaduraSelect.value;
+  const imagemCorpo = document.querySelector(".corpo-1");
+  if (imagemCorpo && novaArmadura) {
+    imagemCorpo.src = novaArmadura;
+  }
+
+  // Arma
+  const armaelect = document.getElementById("arma");  // CORRIGIDO
+   const armaelecionada = armaelect.value;
+  const imagemArma = document.querySelector(".arma"); // CORRIGIDO
+  const imagemArco = document.querySelector(".arco"); // CORRIGIDO
+  if(armaelecionada == "{{ url_for('static', filename='assets/img/arco.png') }}"){
+     imagemArco.src = armaelecionada; 
+     imagemArma.src = "{{ url_for('static', filename='assets/img/vazio.png') }}";
+  }else{
+     imagemArco.src = "{{ url_for('static', filename='assets/img/vazio.png') }}"; 
+     imagemArma.src = armaelecionada;
+
+
+  }
+
+
+
+
+
+  // Escudo
+  const escudoSelect = document.getElementById("escudos");
+  const escudoSelecionado = escudoSelect.value;
+  const imagemEscudo = document.querySelector(".escudo");
+  if (imagemEscudo) {
+    imagemEscudo.src = escudoSelecionado;
+  }
+
+  // Capacete (opcional)
+  const capaceteSelect = document.getElementById("capacetes");
+  const capaceteSelecionado = capaceteSelect.value;
+  const imagemCabeca = document.querySelector(".cabeca");
+  if (imagemCabeca) {
+    imagemCabeca.src = capaceteSelecionado;
+  }
+}
+
+function validarPontos() {
+  let total = atributos.reduce((acc, attr) => acc + parseInt(sliders[attr].value), 0);
+  if (total !== totalMax) {
+    alert("Você precisa distribuir exatamente 100 pontos.");
+    return false;
+  }
+  return true;
+}
+
+window.onload = () => {
+  atualizarPontos();
+
+  document.getElementById("armaduras").addEventListener("change", atualizarPreview);
+  document.getElementById("arma").addEventListener("change", atualizarPreview);
+  document.getElementById("escudos").addEventListener("change", atualizarPreview);
+  document.getElementById("capacetes").addEventListener("change", atualizarPreview);
+  nomeInput.addEventListener("input", atualizarPreview);
+};
+</script>
+
+{% endblock %}
