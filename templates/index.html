@@ -12,7 +12,7 @@
     <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
 
 </head>
-<body class="fundo-home home">
+<body class="fundo-home home" id="parallax">
 <div class="d-flex justify-content-center align-items-center min-vh-100">
   <div class="container py-5 text-center entrada"> 
 <h1 class="animate one mb-4"> 
@@ -31,15 +31,8 @@
   <footer class="text-center mt-5">
     <small>&copy; 2025 CB Games - Todos os direitos reservados.<br>Desenvolvido por: <a href="http://flaubert.dev.br/" target="_blank" class="ass">Flaubert <span>Dev</span></a></small> 
   </footer>
- <script>
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll('.animate').forEach(container => {
-    const spans = container.querySelectorAll('span');
-    spans.forEach((span, i) => {
-      span.style.animationDelay = `${i * 0.05}s`;
-    });
-  });
-});
-</script>
+ <script src="{{ url_for('static', filename='assets/js/scripts.js') }}"></script>
+
+
 </body>
 </html>

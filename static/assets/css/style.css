@@ -11,8 +11,8 @@
 
 .personagem {
     position: relative;
-    width: 350px;
-    height: 370px;
+    width: 288px;
+    height: 308px;
     margin: 0 auto;
     max-width: 100%;
 }
@@ -82,7 +82,9 @@ img.cabeca, img.rosto{
 .card-body.text-center.personagem-tela .personagem  {
     background: url(/static/assets/img/fundo-personagem.png);
     background-size: contain;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
+    background: rgba(255,255,255,0.4);
+    border-radius: 10px;
 }
  
 .fundo-home{ background: url(/static/assets/img/3-Copia.png);
@@ -236,6 +238,170 @@ button.btn.btn-sm.btn-danger.mt-2.delete {
 .bg-black {
     --bs-bg-opacity: 1;
     background-color: rgb(122 78 29) !important;
+}
+.quadro-medieval.text-center.p-5.col-md-6.mx-auto.personagem-create {
+    width: 100%;
+    max-width: 100%;
+}
+
+input[type="range"] {
+  -webkit-appearance: none; /* remove o estilo padrão */
+  width: 100%;
+  height: 6px;
+  background: #ddd;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* BOLINHA no Chrome, Safari, Edge */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: rgb(122 78 29) !important;
+  cursor: pointer;
+  margin-top: -7px; /* ajusta o alinhamento vertical */
+}
+
+/* BOLINHA no Firefox */
+input[type="range"]::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: rgb(122 78 29) !important;
+  cursor: pointer;
+}
+
+/* BOLINHA no Internet Explorer */
+input[type="range"]::-ms-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: rgb(122 78 29) !important;
+  cursor: pointer;
+}
+
+input#nome {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid #7a4e1d;
+    padding: 20px;
+    color: #69533e;
+    font-weight: 700;
+}
+
+#carrossel-armas {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.arma-item {
+  scroll-snap-align: center;
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.d-flex.justify-content-between.align-items-center {
+    height: 176px;
+}
+
+
+.d-flex.justify-content-between.align-items-center {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 15px;
+    color: #ffffff;
+    font-weight: 700;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+div#carrossel-escudos small,div#carrossel-armas small {
+    font-size: 20px;
+    line-height: 20px;
+    display: block;
+    height: 50px;
+    FONT-WEIGHT: 700;
+    width: 100%; 
+}
+select#armaduras, select#capacetes {
+    background-color: rgba(255,255,255,0.6);
+    padding: 15px;
+    border: 1px solid #7a4e1d;
+}
+button.btn.btn-sm.btn-danger.mt-2.select {
+    background: transparent;
+    border-color: #fff;
+}
+
+button.btn.btn-sm.btn-danger.mt-2.select:hover {
+    background: #fff;;
+    color: #000
+}
+
+
+.row.controls {
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+
+
+
+.row.controls button {
+    width: 100%;
+}
+
+ul.hard-skills li {
+    border: 1px solid #7a4e1d;
+    margin-bottom: 5px;
+}
+
+ul.hard-skills {
+    padding: 10px;
+}
+
+ul.hard-skills li span {
+    background: #8e7e04;
+    width: 0%;
+    padding: initial;
+    height: 100%;
+    display: block;
+    top: 0;
+    left: 0; 
+    position: absolute;
+    z-index: -1;
+}
+
+ul.hard-skills {
+    position: relative;
+    z-index: 1;
+}
+
+.card-body.finish-card.selecionado {
+    background-image:url(/static/assets/img/4-Copia.png);
+    background-size: cover;
+  }
+
+  .card-body.finish-card.selecionado .row.controls,  .row.controls.start{
+    display: none;
+}
+
+.card-body.finish-card.selecionado .row.controls.start{display:block;}
+ul.hard-skills li {
+    position: relative;
+    background: rgba(255,255,255,0.2);
+    border-radius: 100px;
+    overflow: hidden;
+    box-shadow: 0 0 5px #000;
+}
+
+.card-body.finish-card.selecionado {
+    border-color: #fff;
+}
+
+.card-body.finish-card.selecionado h5.card-title.nome {
+    background: #fff;
 }
 
 @media(max-width:991px){

@@ -14,12 +14,12 @@
         <div class="text-dark">
           <div class="card-body finish-card">
             <h5 class="card-title nome">{{ p.nome }}</h5>
-            <ul>
-              <li>Força: {{ p.forca }}%</li> 
-              <li>Inteligência: {{ p.inteligencia }}% </li>
-              <li>Agilidade: {{ p.agilidade }}% </li>
-              <li>Resistência: {{ p.resistencia }}%</li>
-            </ul>
+            <ul class="hard-skills"> 
+              <li><span style="width: {{ p.forca }}%;"></span>Força: {{ p.forca }}%</li> 
+              <li><span  style="width: {{ p.inteligencia }}%;"></span>Inteligência: {{ p.inteligencia }}% </li>
+              <li><span  style="width: {{ p.agilidade }}%;"></span>Agilidade: {{ p.agilidade }}% </li>
+              <li><span  style="width: {{ p.resistencia }}%;"></span>Resistência: {{ p.resistencia }}%</li>
+            </ul> 
           <div class="personagem">
           
               {% if p.arma == url_for('static', filename='assets/img/arco.png') %}
@@ -46,10 +46,24 @@
 
 
 
-
+<div class="row controls">
+  <div class="col-sm-6">
                   <form action="{{ url_for('deletar_personagem', id=p.id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este personagem?')">
       <button class="btn btn-sm btn-danger mt-2 delete">Excluir</button>
-        </form>
+      </form>
+      </div>
+       <div class="col-sm-6">        
+      <button class="btn btn-sm btn-danger mt-2 select" onclick="selecionarPersonagem(this)">Selecionar</button>      
+        </div>
+</div>
+
+<div class="row controls start"> 
+       <div class="col-sm-12">        
+      <button class="btn btn-sm btn-danger mt-2 select" onclick="return alert('inicindo o jogo')">Jogar</button>      
+        </div>
+</div>
+
+
           </div>
         </div>
       </div>
@@ -62,3 +76,4 @@
   {% endif %}
 </div>
 {% endblock %}
+
