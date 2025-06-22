@@ -15,14 +15,15 @@
           <div class="card-body finish-card">
             <h5 class="card-title nome">{{ p.nome }}</h5>
             <ul class="hard-skills"> 
-              <li><span style='width: "{{ p.forca }}%";'></span>Força: {{ p.forca }}%</li> 
-              <li><span style='width: "{{ p.inteligencia }}%";'></span>Inteligência: {{ p.inteligencia }}%</li>
-              <li><span style='width: "{{ p.agilidade }}%";'></span>Agilidade: {{ p.agilidade }}%</li>
-              <li><span style='width: "{{ p.resistencia }}%";'></span>Resistência: {{ p.resistencia }}%</li>
+                <li><span style="width: {{ p.forca }}%;"></span>Força: {{ p.forca }}%</li>
+              <li><span style="width: {{ p.inteligencia }}%;"></span>Inteligência: {{ p.inteligencia }}%</li>
+              <li><span style="width: {{ p.agilidade }}%;"></span>Agilidade: {{ p.agilidade }}%</li>
+              <li><span style="width: {{ p.resistencia }}%;"></span>Resistência: {{ p.resistencia }}%</li>
+
             </ul> 
 
             <div class="personagem">
-              {% if "arco.png' in p.arma %}
+              {% if 'arco.png' in p.arma %}
                 <img src="{{ p.arma }}" class="arco" alt=""> 
               {% else %}
                 <img src="{{ url_for('static', filename='assets/img/vazio.png') }}" class="arco" alt="">
