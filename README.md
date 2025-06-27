@@ -116,3 +116,12 @@ Acesse: [http://localhost:5000](http://localhost:5000)
 - Recomenda-se mover essa chave para uma variável de ambiente em produção
 
 
+
+## 👤 Créditos
+
+Projeto desenvolvido por **Flaubert**, Gerente de Desenvolvimento e Full Stack Developer.  
+Idealização, estruturação, codificação e design visual foram conduzidos com foco em performance, experiência do usuário e escalabilidade futura.
+
+[LinkedIn](https://www.linkedin.com/in/flaubert-caldeira-da-silva-jr/) | [GitHub](https://github.com/FlaubertWeb) | [Instagram](https://www.instagram.com/flaubert.dev/)  | [Portfólio](https://flaubert.dev.br/) 
+
+
