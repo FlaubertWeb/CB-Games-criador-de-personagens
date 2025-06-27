@@ -1,127 +1,118 @@
-# Documentação do Projeto: CB Games - Criador de Personagens
+# 📘 Documentação Técnica – CB Games: Criador de Personagens
 
-## 🌟 Visão Geral
+## 📌 Visão Geral
 
-CB Games é um sistema web de cadastro e personalização de personagens com estética medieval, permitindo aos usuários criarem contas, gerenciarem personagens e interagirem com uma interface visual rica.
-
---- 
-
-## 🎨 Tecnologias Utilizadas
-
-* **Backend:** Python (Flask)
-* **Frontend:** HTML, CSS (Bootstrap + custom), JavaScript
-* **Banco de Dados:** SQLite com SQLAlchemy
-* **Templates:** Jinja2
+CB Games é uma aplicação web voltada para criação e personalização de personagens em um ambiente temático medieval. Usuários podem se registrar, fazer login e montar seus personagens definindo atributos como força, inteligência, agilidade, resistência, armas, armaduras e aparência.
 
 ---
 
-## 📄 Estrutura do Projeto
+## 🛠️ Tecnologias Utilizadas
+
+- **Backend:** Python + Flask  
+- **ORM:** SQLAlchemy  
+- **Banco de dados:** SQLite  
+- **Frontend:** HTML5, Bootstrap 5, CSS3 personalizado, JavaScript  
+- **Template engine:** Jinja2  
+- **Gerenciamento de senha:** Hashing com `werkzeug.security`
+
+---
+
+## 📁 Estrutura do Projeto
 
 ```
 projeto_cb_games/
-├── app.py                  # Arquivo principal com as rotas e lógica do servidor
-├── templates/              # HTMLs usando Jinja2
+├── app.py                      # Aplicação Flask principal
+├── requirements.txt            # Dependências do projeto
+├── README.md                   # Documentação original
+├── static/
+│   └── assets/
+│       ├── css/style.css       # Estilo visual medieval
+│       ├── js/scripts.js       # Scripts JS para interação
+│       ├── img/                # Imagens utilizadas
+│       └── music/              # Trilha sonora do jogo
+├── templates/                  # Templates HTML (Jinja2)
 │   ├── base.html
 │   ├── index.html
 │   ├── login.html
 │   ├── cadastro.html
 │   ├── dashboard.html
 │   └── criar_personagem.html
-├── static/
-│   └── assets/
-│       ├── css/style.css   # Estilos customizados (visual medieval)
-│       ├── js/scripts.js   # Scripts JS (seleção de personagem etc.)
-│       └── img/            # Imagens de itens, personagens etc.
-└── cbgames.db              # Banco SQLite local
 ```
 
 ---
 
-## 🔒 Funcionalidades
+## 🔐 Funcionalidades
 
-### Cadastro e Login
+### Autenticação:
+- Cadastro de usuário com validação de unicidade
+- Login seguro com hash de senha
+- Sessões com controle de acesso (via `session`)
 
-* Criação de conta com username único e senha criptografada (hash).
-* Login com verificação e sessão.
-
-### Dashboard
-
-* Listagem dos personagens do usuário logado.
-* Visualização em cards com atributos e sprites visuais (armadura, arma etc.).
-* Opção de excluir ou selecionar personagem.
-
-### Criação de Personagem
-
-* Formulário com distribução de atributos (força, agilidade, etc.).
-* Escolha de itens (armas, escudos, armaduras).
-* Renderização visual com sprites empilhados.
+### Personagens:
+- Criação de personagens com:
+  - Nome
+  - Atributos: força, inteligência, agilidade, resistência
+  - Itens: arma, escudo, armadura, cabelo ou capacete
+  - Aparência: cor da pele
+- Listagem de personagens cadastrados
+- Visualização da ficha com porcentagens
+- Exclusão de personagens
 
 ---
 
-## 📊 Models (Banco de Dados)
+## 🔀 Rotas Principais
 
-```python
-class Usuario(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True, nullable=False)
-    senha_hash = db.Column(db.String(200), nullable=False)
-
-class Personagem(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100))
-    forca = db.Column(db.Integer)
-    inteligencia = db.Column(db.Integer)
-    agilidade = db.Column(db.Integer)
-    resistencia = db.Column(db.Integer)
-    arma = db.Column(db.String(100))
-    escudo = db.Column(db.String(100))
-    armadura = db.Column(db.String(100))
-    capacete = db.Column(db.String(100))
-    cabelo = db.Column(db.String(50))
-    user_id = db.Column(db.Integer, db.ForeignKey('usuario.id'))
-```
+| Rota                 | Método | Descrição |
+|----------------------|--------|------------|
+| `/`                  | GET    | Página inicial |
+| `/login`             | GET/POST | Login do usuário |
+| `/cadastro`          | GET/POST | Registro de novo usuário |
+| `/dashboard`         | GET    | Lista os personagens do usuário logado |
+| `/criar_personagem`  | GET/POST | Formulário para criar novo personagem |
+| `/sair`              | GET    | Encerra a sessão e faz logout |
 
 ---
 
-## 🔧 Melhoria Recomendada
+## 🧪 Como Rodar Localmente
 
-* Adicionar campo `personagem_ativo` no model `Usuario` ou `Personagem`.
-* Criar helper `@app.context_processor` para injetar `user` em todos os templates.
-* Melhorar validação de atributos no backend.
-* Adicionar animação visual e feedback de seleção de personagem.
-
----
-
-## 📤 Deploy
-
-O projeto pode ser facilmente publicado no **Render**, **Railway** ou **Heroku**. Basta:
-
-* Criar arquivo `requirements.txt`
-* Criar `Procfile` com:
-
-```
-web: gunicorn app:app
-```
-
-* Ajustar variável `host` em `app.run()` ou usar `gunicorn` em produção.
-
----
-
-## 🔧 Comandos úteis
-
+### 1. Clonar o projeto:
 ```bash
-# Iniciar o servidor local
-flask run
+git clone [https://github.com/FlaubertWeb/CB-Games-criador-de-personagens]
 
-# Criar banco de dados
-python
->>> from app import db
->>> db.create_all()
 ```
+
+### 2. Criar e ativar ambiente virtual:
+```bash 
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+venv\Scripts\activate     # Windows
+```
+
+### 3. Instalar as dependências:
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Criar banco de dados:
+Dentro do terminal Python (ou em um script separado):
+```python
+from app import db
+db.create_all()
+```
+
+### 5. Executar o servidor:
+```bash
+python app.py
+```
+
+Acesse: [http://localhost:5000](http://localhost:5000)
 
 ---
 
-## 🏆 Créditos
+## 🔐 Segurança
 
-Desenvolvido por **Flaubert**, como projeto da Infinity School.
-Design, lógica, sprites e interatividade personalizados para o contexto medieval e foco em experiência de criação de personagens.
+- Senhas são criptografadas com `werkzeug.security`
+- Sessões são protegidas por uma `secret_key` definida no `app.py`
+- Recomenda-se mover essa chave para uma variável de ambiente em produção
+
+
