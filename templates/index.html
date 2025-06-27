@@ -31,8 +31,38 @@
   <footer class="text-center mt-5">
     <small>&copy; 2025 CB Games - Todos os direitos reservados.<br>Desenvolvido por: <a href="https://flaubert.dev.br/" target="_blank" class="ass">Flaubert <span>Dev</span></a></small> 
   </footer>
+
+<audio id="musica" loop preload="auto" controls autoplay style="opacity: 0; display: none;">
+  <source src="{{ url_for('static', filename='assets/music/0627.mp3') }}" type="audio/mp3"> 
+  Seu navegador não suporta áudio.
+</audio>  
+
+<script> //ADICIONADO SCRIPT IN PAGE PARA MELHORAR A VELOCIDADE DE LEITURA
+  document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('musica');
+
+    if (!audio) return;
+
+    // Só toca se ainda estiver pausado
+    const iniciarMusica = () => {
+      if (audio.paused) {
+        audio.play().then(() => {
+          alert('Música tocando...');
+        }).catch(err => { 
+          alert('Erro ao tocar música:', err);
+        });
+      }
+    };
+
+    // Toca no primeiro clique em qualquer parte da página
+    document.body.addEventListener('click', iniciarMusica, { once: true });
+
+    // Também tenta tocar se pressionar qualquer tecla
+    document.body.addEventListener('keydown', iniciarMusica, { once: true });
+  });
+</script>
+
+
  <script src="{{ url_for('static', filename='assets/js/scripts.js') }}"></script>
-
-
 </body>
 </html>

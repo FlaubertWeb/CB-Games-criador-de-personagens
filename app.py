@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
 app.secret_key = 'chave_secreta_segura'
@@ -14,6 +15,7 @@ class Usuario(db.Model):
     username = db.Column(db.String(100), unique=True, nullable=False)
     senha_hash = db.Column(db.String(200), nullable=False)
 
+
 class Personagem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100))
@@ -25,10 +27,19 @@ class Personagem(db.Model):
     escudo = db.Column(db.String(100))      
     armadura = db.Column(db.String(100))     
     capacete = db.Column(db.String(100))     
-    cabelo = db.Column(db.String(50))
+    cor = db.Column(db.String(7))  # <-- Salva o código hex direto, tipo "#f1c27d"
     user_id = db.Column(db.Integer, db.ForeignKey('usuario.id'))
 
+
+
 # ROTAS
+@app.after_request
+def add_header(response):
+    response.cache_control.max_age = 31536000  # 1 ano
+    response.cache_control.public = True
+    return response
+
+ 
 
 @app.route('/')
 def index():
@@ -51,8 +62,6 @@ def login():
 
 
 
-
-
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
@@ -71,7 +80,7 @@ def dashboard():
     if 'usuario_id' not in session:
         return redirect(url_for('login'))
     
-    user = Usuario.query.get(session['usuario_id'])  # <- Pega o usuário logado
+    user = db.session.get(Usuario, session['usuario_id'])
     personagens = Personagem.query.filter_by(user_id=user.id).all()
     
     return render_template('dashboard.html', personagens=personagens, user=user.username)
@@ -80,7 +89,7 @@ def dashboard():
 def criar_personagem():
     if 'usuario_id' not in session:
         return redirect(url_for('login'))
-    user = Usuario.query.get(session['usuario_id'])  # pega o usuário logado
+    user = db.session.get(Usuario, session['usuario_id'])
 
     if request.method == 'POST':
         personagem = Personagem(
@@ -93,6 +102,7 @@ def criar_personagem():
             escudo=request.form['escudos'],
             armadura=request.form['armaduras'],
             capacete=request.form['capacetes'],
+            cor=request.form['cor_pele'],
             user_id=session['usuario_id'],
             
         )

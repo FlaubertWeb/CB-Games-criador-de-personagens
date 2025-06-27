@@ -14,7 +14,9 @@
 
  
 </head>
-<body class="bg-dark text-light medieval-fundo" id="parallax">
+<body class="bg-dark text-light medieval-fundo {% if request.path == '/criar_personagem'%} criador{% endif %}" id="parallax">
+
+
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-black px-3">
     <a class="navbar-brand" href="/">CB Games</a>
@@ -23,7 +25,9 @@
 {% if user %} 
   <li class="nav-item"><a class="nav-link">Bem-vindo(a), {{ user }}!</a></li>
 {% endif %}
+{% if request.path != '/dashboard' %}
         <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+{% endif %}        
         <li class="nav-item"><a class="nav-link" href="/sair">Sair</a></li>
       </ul>
     </div>
@@ -32,6 +36,36 @@
   <main class="container">
     {% block conteudo %}{% endblock %}
   </main>
+  
+<audio id="musica" loop preload="auto" controls autoplay style="opacity: 0; display: none;">
+  <source src="{{ url_for('static', filename='assets/music/0627.mp3') }}" type="audio/mp3"> 
+  Seu navegador não suporta áudio.
+</audio> 
+
+<script> //ADICIONADO SCRIPT IN PAGE PARA MELHORAR A VELOCIDADE DE LEITURA
+  document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('musica');
+
+    if (!audio) return;
+
+    // Só toca se ainda estiver pausado
+    const iniciarMusica = () => {
+      if (audio.paused) {
+        audio.play().then(() => {
+          console.log('Música tocando...');
+        }).catch(err => {
+          console.warn('Erro ao tocar música:', err);
+        });
+      }
+    };
+
+    // Toca no primeiro clique em qualquer parte da página
+    document.body.addEventListener('click', iniciarMusica, { once: true });
+
+    // Também tenta tocar se pressionar qualquer tecla
+    document.body.addEventListener('keydown', iniciarMusica, { once: true });
+  });
+</script>
  <script src="{{ url_for('static', filename='assets/js/scripts.js') }}"></script>
 </body>
 </html>

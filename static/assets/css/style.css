@@ -37,10 +37,6 @@ img.escudo{
 
 }
 
-img.cabeca, img.rosto{
-    animation: cabeca 1s infinite linear alternate-reverse;
-   
-}
 
  
 .alfa-slab-one-regular {
@@ -87,7 +83,7 @@ img.cabeca, img.rosto{
     border-radius: 10px;
 }
  
-.fundo-home{ background: url(/static/assets/img/3-Copia.png);
+.fundo-home{ background: url(/static/assets/img/3-Copia.jpg); 
     background-size: cover;
     background-repeat: no-repeat; }
 
@@ -187,18 +183,6 @@ color: rgb(255, 255, 255) !important;
 }
 
 
- /*
-@keyframes move {
-  0% {
-    background-position: bottom 0;
-
-  }
-  100% {
-    background-position:bottom 5000px ;
-  }
-}
-*/
-
 .bg-light {
     border: 0;
 }
@@ -285,7 +269,7 @@ input[type="range"]::-ms-thumb {
 input#nome {
     background: rgba(255,255,255,0.6);
     border: 1px solid #7a4e1d;
-    padding: 20px;
+    padding: 15px;
     color: #69533e;
     font-weight: 700;
 }
@@ -325,10 +309,11 @@ div#carrossel-escudos small,div#carrossel-armas small {
     FONT-WEIGHT: 700;
     width: 100%; 
 }
-select#armaduras, select#capacetes {
+select#armaduras, select#capacetes, select#cor_pele {
     background-color: rgba(255,255,255,0.6);
     padding: 15px;
     border: 1px solid #7a4e1d;
+    font-weight:700;
 }
 button.btn.btn-sm.btn-danger.mt-2.select {
     background: transparent;
@@ -402,6 +387,31 @@ ul.hard-skills li {
 
 .card-body.finish-card.selecionado h5.card-title.nome {
     background: #fff;
+}
+
+svg#personagem {
+    width: 183px;
+    position: absolute;
+    top: 5%;
+    left: 22%;
+}
+
+span#pontos_restantes {
+    font-weight: 700;
+    color: #95ff95;
+}
+
+
+body#parallax.criador:before {
+    display: block;
+    width: 100%;
+    background: rgb(0 0 0 / 60%);
+    height: 100%;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 @media(max-width:991px){
